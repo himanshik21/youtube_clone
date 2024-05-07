@@ -1,4 +1,23 @@
-# Getting Started with Create React App
+# YouTube Clone
+
+## Overview
+This project is a YouTube clone built using ReactJS, Tailwind CSS, and the Rapid API. It aims to replicate some of the core features of the actual YouTube platform, providing users with a familiar experience.
+
+## Features
+- **Video Search**: Users can search for videos based on keywords using the functional search bar.
+- **Categories**: Explore different video categories through the sidebar.
+- **Responsive Design**: The clone is fully responsive, ensuring optimal viewing on all devices.
+
+## Technologies Used
+- **ReactJS**: A powerful JavaScript library for building dynamic user interfaces.
+- **Tailwind CSS**: A utility-first CSS framework for efficient styling.
+- **Context Hook**: Utilized for global state management.
+- **Rapid API**: Integrated to fetch video data from YouTube.
+
+## Live Demo
+Check out the live demo [here](https://youtube-clone-by-hk.netlify.app/).
+
+Feel free to explore this project! 🚀
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
