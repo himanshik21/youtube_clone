@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import { fetchDataFromApi } from "../utils/api";
@@ -7,25 +7,24 @@ import LeftNav from "./LeftNav";
 import SearchResultVideoCard from "./SearchResultVideoCard";
 
 const SearchResult = () => {
+  const [result, setResult] = useState();
+  const { searchQuery } = useParams();
+  const { setLoading } = useContext(Context);
 
-   const [result, setResult] = useState();
-   const { searchQuery } = useParams();
-   const { setLoading } = useContext(Context);
+  const fetchSearchResults = useCallback(() => {
+    setLoading(true);
+    fetchDataFromApi(`search/?q=${searchQuery}`).then((res) => {
+      console.log(res);
+      setResult(res?.contents);
+      setLoading(false);
+    });
+  },[searchQuery,setLoading]);
 
+  useEffect(() => {
+    document.getElementById("root").classList.remove("custom-h");
+    fetchSearchResults();
+  }, [fetchSearchResults]);
 
-   useEffect(() => {
-     document.getElementById("root").classList.remove("custom-h");
-     fetchSearchResults();
-   }, [searchQuery]);
-
-   const fetchSearchResults = () => {
-     setLoading(true);
-     fetchDataFromApi(`search/?q=${searchQuery}`).then((res) => {
-       console.log(res);
-       setResult(res?.contents);
-       setLoading(false);
-     });
-   };
   return (
     <div className="flex flex-row h-[calc(100%-56px)]">
       <LeftNav />

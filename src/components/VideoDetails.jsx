@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { BsFillCheckCircleFill } from "react-icons/bs";
@@ -10,34 +10,34 @@ import { Context } from "../context/contextApi";
 import SuggestionVideoCard from "./SuggestionVideoCard";
 
 const VideoDetails = () => {
-   const [video, setVideo] = useState();
-   const [relatedVideos, setRelatedVideos] = useState();
-   const { id } = useParams();
-   const { setLoading } = useContext(Context);
+  const [video, setVideo] = useState();
+  const [relatedVideos, setRelatedVideos] = useState();
+  const { id } = useParams();
+  const { setLoading } = useContext(Context);
 
-   useEffect(() => {
-     document.getElementById("root").classList.add("custom-h");
-     fetchVideoDetails();
-     fetchRelatedVideos();
-   }, [id]);
+  const fetchVideoDetails = useCallback(() => {
+    setLoading(true);
+    fetchDataFromApi(`video/details/?id=${id}`).then((res) => {
+      console.log(res);
+      setVideo(res);
+      setLoading(false);
+    });
+  }, [id,setLoading]);
 
-    const fetchVideoDetails = () => {
-      setLoading(true);
-      fetchDataFromApi(`video/details/?id=${id}`).then((res) => {
-        console.log(res);
-        setVideo(res);
-        setLoading(false);
-      });
-    };
+  const fetchRelatedVideos = useCallback(() => {
+    setLoading(true);
+    fetchDataFromApi(`video/related-contents/?id=${id}`).then((res) => {
+      console.log(res);
+      setRelatedVideos(res);
+      setLoading(false);
+    });
+  }, [id, setLoading]);
 
-    const fetchRelatedVideos = () => {
-      setLoading(true);
-      fetchDataFromApi(`video/related-contents/?id=${id}`).then((res) => {
-        console.log(res);
-        setRelatedVideos(res);
-        setLoading(false);
-      });
-    };
+  useEffect(() => {
+    document.getElementById("root").classList.add("custom-h");
+    fetchVideoDetails();
+    fetchRelatedVideos();
+  }, [fetchRelatedVideos, fetchVideoDetails]);
 
   return (
     <div className="flex justify-center flex-row h-[calc(100%-56px)] bg-black">
