@@ -28,7 +28,7 @@ const VideoLength = ({ time }) => {
     videoLengthInSeconds = moment()
     .startOf("day")
     .seconds(time)
-    .format("mm:ss");
+    .format("H:mm:ss");
   }
   return (
     <span className="absolute bottom-2 right-2 bg-black py-1 px-2 text-white text-xs rounded-md">
