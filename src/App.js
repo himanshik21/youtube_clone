@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import Header from './components/Header';
 import Feed from './components/Feed';
 import SearchResult from './components/SearchResult';
